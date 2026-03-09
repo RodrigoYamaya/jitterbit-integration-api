@@ -4,6 +4,8 @@ require('dotenv').config();
 const swaggerUi = require("swagger-ui-express");
 const swaggerJsdoc = require("swagger-jsdoc");
 
+const authRoutes = require("./auth"); 
+
 const PORT = process.env.PORT || 3000;
 
 const options = {
@@ -16,12 +18,13 @@ const options = {
     },
     servers: [{ url: `http://localhost:${PORT}` }]
   },
-  apis: ["./src/**/*.js"]   
+  apis: ["./src/**/*.js"]  
 };
 
 const swaggerSpec = swaggerJsdoc(options);
 
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use(authRoutes);
 
 app.listen(PORT, () => {
   console.log(`Servidor iniciado em http://localhost:${PORT}`);
