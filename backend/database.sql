@@ -1,0 +1,17 @@
+CREATE DATABASE IF NOT EXISTS jitterbit_test;
+USE jitterbit_test;
+
+CREATE TABLE IF NOT EXISTS `Order` (
+    orderId VARCHAR(255) PRIMARY KEY,
+    value DECIMAL(10, 2) NOT NULL,
+    creationDate DATETIME NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS Items (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    orderId VARCHAR(255) NOT NULL,
+    productId VARCHAR(255) NOT NULL,
+    quantity INT NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    FOREIGN KEY (orderId) REFERENCES `Order`(orderId) ON DELETE CASCADE
+);
